@@ -2,3 +2,4 @@ DATABASE_URL=postgresql://app:pwd@localhost:5432/app?schema=public
 OPENAI_API_KEY=sk-***
 OPENAI_MODEL=gpt-4.1
 TEMPERATURE=0
+MAX_OUTPUT_TOKENS=16000

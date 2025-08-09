@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const projectRoot = path.resolve(__dirname, '..');
 const dataFile = path.resolve(projectRoot, 'car.yaml');
-const defaultOut = path.resolve(projectRoot, 'md', 'car', 'ALL_CAR.md');
+const defaultOut = path.resolve(projectRoot, 'md', 'ALL_CAR.md');
 
 function readYaml(filePath) {
   const text = fs.readFileSync(filePath, 'utf8');
@@ -50,7 +50,13 @@ async function main() {
   const parts = [];
   let count = 0;
   for (const e of sorted) {
-    const mdRel = e.md && typeof e.md === 'string' ? e.md : path.join('md', 'car', `Part_${zeroPadPart(e.part)}.md`);
+    // Ensure CAR files are searched under scripts/md/car/*.md
+    let mdRel;
+    if (e.md && typeof e.md === 'string') {
+      mdRel = path.isAbsolute(e.md) ? e.md : path.join('md', 'car', e.md);
+    } else {
+      mdRel = path.join('md', 'car', `Part_${zeroPadPart(e.part)}.md`);
+    }
     const mdAbs = path.resolve(projectRoot, mdRel);
     if (!fs.existsSync(mdAbs)) {
       console.warn(`[MISS] skipping Part ${zeroPadPart(e.part)} (not found: ${mdAbs})`);

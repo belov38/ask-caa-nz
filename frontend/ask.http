@@ -1,0 +1,21 @@
+# HTTP client examples for the Ask API
+#
+# Prerequisites:
+# - Next.js dev server running locally on port 3000 (npm run dev in frontend)
+# - Environment variable OPENAI_API_KEY set for the Next.js server
+#
+# Tip: Change the host to your deployed URL if needed.
+
+@host = http://localhost:3000
+
+###
+# POST: Ask a question (use this endpoint)
+POST {{host}}/api/ask
+Content-Type: application/json
+Accept: application/json
+
+{
+  "question": "What are the VFR minima for class C and D airspace?",
+  "temperature": 0
+}
+
