@@ -11,8 +11,10 @@ import YAML from 'yaml';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const projectRoot = path.resolve(__dirname, '..');
-const dataFile = path.resolve(projectRoot, 'car.yaml');
+// Keep a handle to both roots: the scripts package root and the repository root
+const scriptsRoot = path.resolve(__dirname, '..');
+const repoRoot = path.resolve(__dirname, '..', '..');
+const dataFile = path.resolve(scriptsRoot, 'car.yaml');
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 const REFERER = 'https://www.aviation.govt.nz/rules/rule-part/';
@@ -84,10 +86,18 @@ function computeDefaultPdfPath(part) {
 async function downloadPdf(entry, cookieJar) {
   const part = zeroPadPart(entry.part);
   const url = entry.url;
-  const relOut = entry.pdf && typeof entry.pdf === 'string' && entry.pdf.trim() !== ''
-    ? entry.pdf
-    : computeDefaultPdfPath(part);
-  const outPath = path.resolve(projectRoot, relOut);
+  // Determine output relative path:
+  // - If a filename is provided with no directory, save to download/car/<filename>
+  // - If a relative/absolute path is provided, use as-is (relative to repo root)
+  let relOut;
+  if (entry.pdf && typeof entry.pdf === 'string' && entry.pdf.trim() !== '') {
+    const candidate = entry.pdf.trim();
+    const hasPathSeparator = candidate.includes('/') || candidate.includes(path.sep);
+    relOut = hasPathSeparator ? candidate : path.join('download', 'car', candidate);
+  } else {
+    relOut = computeDefaultPdfPath(part);
+  }
+  const outPath = path.resolve(repoRoot, relOut);
   const tmpPath = `${outPath}.tmp`;
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
 
@@ -128,11 +138,11 @@ async function main() {
   const ok = results.filter(r => r.ok).length;
   const fail = results.length - ok;
   // write report json
-  const reportPath = path.resolve(projectRoot, 'download', 'car', 'report.json');
+  const reportPath = path.resolve(repoRoot, 'download', 'car', 'report.json');
   fs.mkdirSync(path.dirname(reportPath), { recursive: true });
   fs.writeFileSync(reportPath, JSON.stringify(results, null, 2));
   console.log(`Summary: ${ok} ok, ${fail} fail`);
-  console.log(`Output: ${path.resolve(projectRoot)}`);
+  console.log(`Output: ${path.resolve(repoRoot, 'download', 'car')}`);
 }
 
 main().catch(err => {

@@ -9,8 +9,10 @@ import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const projectRoot = path.resolve(__dirname, '..');
-const dataFile = path.resolve(projectRoot, 'car.yaml');
+// Keep a handle to both roots: the scripts package root and the repository root
+const scriptsRoot = path.resolve(__dirname, '..');
+const repoRoot = path.resolve(__dirname, '..', '..');
+const dataFile = path.resolve(scriptsRoot, 'car.yaml');
 // paths are provided per-entry in YAML (pdf_path, md_path)
 
 function readYaml(filePath) {
@@ -78,22 +80,33 @@ async function main() {
   const byPart = new Map(entries.map(e => [zeroPadPart(e.part), e]));
   const results = [];
   for (const [part, meta] of byPart.entries()) {
-    const relPdf = meta.pdf && typeof meta.pdf === 'string' && meta.pdf.trim() !== ''
-      ? meta.pdf
-      : path.join('download', 'car', `Part_${part}_Consolidation.pdf`);
-    const pdfPath = path.resolve(projectRoot, relPdf);
+    // Determine PDF path relative to repo root, mirroring downloader behavior
+    let relPdf;
+    if (meta.pdf && typeof meta.pdf === 'string' && meta.pdf.trim() !== '') {
+      const candidate = meta.pdf.trim();
+      const hasPathSeparator = candidate.includes('/') || candidate.includes(path.sep);
+      relPdf = hasPathSeparator ? candidate : path.join('download', 'car', candidate);
+    } else {
+      relPdf = path.join('download', 'car', `Part_${part}_Consolidation.pdf`);
+    }
+    const pdfPath = path.resolve(repoRoot, relPdf);
     if (!fs.existsSync(pdfPath)) {
       console.warn(`[MISS] Part ${part} missing PDF at ${pdfPath}`);
       results.push({ part, ok: false, error: 'missing_pdf', pdfPath });
       continue;
     }
     try {
-      // determine output path based on meta.md_path
-      let relMd = meta.md && typeof meta.md === 'string' && meta.md.trim() !== ''
-        ? meta.md
-        : path.join('md', 'car', `Part_${part}.md`);
+      // determine output path based on meta.md (kept relative to scripts root)
+      let relMd;
+      if (meta.md && typeof meta.md === 'string' && meta.md.trim() !== '') {
+        const candidate = meta.md.trim();
+        const hasPathSeparator = candidate.includes('/') || candidate.includes(path.sep);
+        relMd = hasPathSeparator ? candidate : path.join('md', 'car', candidate);
+      } else {
+        relMd = path.join('md', 'car', `Part_${part}.md`);
+      }
       if (relMd.toLowerCase().endsWith('.pdf')) relMd = relMd.slice(0, -4) + '.md';
-      const outFile = path.resolve(projectRoot, relMd);
+      const outFile = path.resolve(scriptsRoot, relMd);
       fs.mkdirSync(path.dirname(outFile), { recursive: true });
       const r = await convertOne(pdfPath, meta, outFile);
       console.log(`[OK] Part ${part} -> ${r.outFile} (${r.pages} pages, ${r.bytes} bytes)`);
@@ -106,7 +119,7 @@ async function main() {
 
   const ok = results.filter(r => r.ok).length;
   const fail = results.length - ok;
-  const reportPath = path.resolve(projectRoot, 'convert_report.json');
+  const reportPath = path.resolve(scriptsRoot, 'convert_report.json');
   fs.mkdirSync(path.dirname(reportPath), { recursive: true });
   fs.writeFileSync(reportPath, JSON.stringify(results, null, 2), 'utf8');
   console.log(`Summary: ${ok} ok, ${fail} fail`);
