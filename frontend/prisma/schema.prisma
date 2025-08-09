@@ -8,3 +8,27 @@ datasource db {
 }
 
 
+model QueryHistory {
+  id                 String   @id @default(cuid())
+  createdAt          DateTime @default(now()) @db.Timestamptz(6)
+
+  // Core fields
+  question           String   @db.Text
+  answer             String   @db.Text
+  model              String
+
+  // Token usage
+  totalTokens        Int?
+  promptTokens       Int?
+  completionTokens   Int?
+
+  // OpenAI metadata
+  finishReason       String?
+  durationMs         Int?
+
+  // Raw response for auditing/debugging
+  rawResponse        Json?
+
+  @@index([createdAt])
+}
+

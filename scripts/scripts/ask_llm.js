@@ -14,7 +14,7 @@ const projectRoot = path.resolve(__dirname, '..');
 const MODEL = process.env.OPENAI_MODEL || 'gpt-4.1-nano';
 const SYSTEM_PATH = process.env.SYSTEM_PATH || path.resolve(projectRoot, 'md', 'ALL_CAR.md');
 const CAA_PATH = process.env.CAA_PATH || path.resolve(projectRoot, 'md', 'caa', 'CAA_2023_0010.md');
-const MAX_OUTPUT_TOKENS = process.env.MAX_OUTPUT_TOKENS ? Number(process.env.MAX_OUTPUT_TOKENS) : 32000;
+const MAX_OUTPUT_TOKENS = process.env.MAX_OUTPUT_TOKENS ? Number(process.env.MAX_OUTPUT_TOKENS) : 4000;
 const TEMPERATURE = process.env.TEMPERATURE !== undefined && process.env.TEMPERATURE !== ''
   ? Number(process.env.TEMPERATURE)
   : undefined; // omit if not set to respect model defaults

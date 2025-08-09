@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import type { HTMLAttributes, ReactNode } from "react"
 import ReactMarkdown from "react-markdown"
 import type { Components } from "react-markdown"
@@ -31,12 +31,26 @@ type AskResponse = {
   }
 }
 
+type HistoryItem = {
+  id: string
+  createdAt: string
+  question: string
+  answer: string
+  model: string
+  totalTokens?: number | null
+  promptTokens?: number | null
+  completionTokens?: number | null
+  finishReason?: string | null
+  durationMs?: number | null
+}
+
 export default function Home() {
   const [question, setQuestion] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [answer, setAnswer] = useState<AskResponse | null>(null)
   const [startedAt, setStartedAt] = useState<number | null>(null)
+  const [history, setHistory] = useState<HistoryItem[]>([])
 
   const durationSec = useMemo(() => {
     if (!startedAt || !loading) return null
@@ -61,6 +75,8 @@ export default function Home() {
         throw new Error(maybeError.error ?? `Request failed: ${resp.status}`)
       }
       setAnswer(json as AskResponse)
+      // Refresh history after a successful ask
+      void fetchHistory()
     } catch (err) {
       setError((err as Error).message)
     } finally {
@@ -89,6 +105,20 @@ export default function Home() {
       )
     },
   }
+
+  async function fetchHistory() {
+    try {
+      const resp = await fetch("/api/history?take=100")
+      const json = (await resp.json()) as { items?: HistoryItem[] }
+      if (Array.isArray(json.items)) {
+        setHistory(json.items)
+      }
+    } catch {}
+  }
+
+  useEffect(() => {
+    void fetchHistory()
+  }, [])
 
   return (
     <div className="mx-auto w-full max-w-4xl p-6 md:p-10">
@@ -167,6 +197,62 @@ export default function Home() {
           </CardContent>
         </Card>
       )}
+
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle className="text-base font-medium">History</CardTitle>
+          <p className="text-xs text-muted-foreground mt-1">Latest 100 questions</p>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead className="text-left text-muted-foreground">
+                <tr className="border-b">
+                  <th className="py-2 pr-3">When</th>
+                  <th className="py-2 pr-3">Question</th>
+                </tr>
+              </thead>
+              <tbody>
+                {history.map((h) => (
+                  <tr key={h.id} className="border-b align-top">
+                    <td className="py-2 pr-3 whitespace-nowrap">
+                      {new Date(h.createdAt).toLocaleString()}
+                    </td>
+                    <td className="py-2 pr-3">
+                      <button
+                        type="button"
+                        className="text-left hover:underline"
+                        onClick={() => {
+                          setQuestion(h.question)
+                          setAnswer({
+                            content: h.answer,
+                            summary: {
+                              id: h.id,
+                              model: h.model,
+                              created: Math.floor(new Date(h.createdAt).getTime() / 1000),
+                              usage: undefined,
+                              finish_reason: h.finishReason ?? undefined,
+                            },
+                          })
+                        }}
+                      >
+                        {h.question}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {history.length === 0 && (
+                  <tr>
+                    <td colSpan={2} className="py-4 text-center text-muted-foreground">
+                      No history yet.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

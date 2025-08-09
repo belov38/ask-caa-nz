@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
+import { Prisma } from '@prisma/client'
 import type {
   ChatCompletion,
   ChatCompletionCreateParamsNonStreaming,
 } from 'openai/resources/chat/completions'
 import fs from 'node:fs'
 import path from 'node:path'
+import prisma from '@/lib/prisma'
 
 export const runtime = 'nodejs'
 
@@ -172,6 +174,27 @@ async function handleAsk(question: string, bodyOverrides?: Partial<AskRequestBod
       durationMs,
       contentPreview: previewText(content, 400),
     })
+
+    // Persist query history (best-effort; do not fail request if DB write fails)
+    try {
+      await prisma.queryHistory.create({
+        data: {
+          question,
+          answer: content,
+          model: String(resp.model ?? model),
+          totalTokens: resp.usage?.total_tokens ?? undefined,
+          promptTokens: resp.usage?.prompt_tokens ?? undefined,
+          completionTokens: resp.usage?.completion_tokens ?? undefined,
+          finishReason: resp.choices?.[0]?.finish_reason ?? undefined,
+          durationMs,
+          rawResponse: JSON.parse(JSON.stringify(resp)) as Prisma.InputJsonValue,
+        },
+      })
+    } catch (persistError) {
+      console.warn('[ask] persist warning', {
+        message: (persistError as Error)?.message,
+      })
+    }
 
     return NextResponse.json({ content, summary })
   } catch (error) {
