@@ -64,6 +64,13 @@ function buildPolicy(): string {
   ].join('\n')
 }
 
+function previewText(text: string, maxLength = 400): string {
+  if (!text) return ''
+  const normalized = text.replace(/\s+/g, ' ').trim()
+  if (normalized.length <= maxLength) return normalized
+  return normalized.slice(0, maxLength) + '…'
+}
+
 function resolveDefaultPaths() {
   // Default to repository layout: <repo>/scripts/md/{car, caa}
   // API route runs with CWD of the frontend app in dev/build.
@@ -139,17 +146,45 @@ async function handleAsk(question: string, bodyOverrides?: Partial<AskRequestBod
       : {}),
   }
 
-  const resp = (await client.chat.completions.create(payload)) as ChatCompletion
-  const content = resp.choices?.[0]?.message?.content || ''
-  const summary = {
-    id: resp.id,
-    model: resp.model,
-    created: resp.created,
-    usage: resp.usage,
-    finish_reason: resp.choices?.[0]?.finish_reason,
-  }
+  const startedAt = Date.now()
+  try {
+    // Log request (without large bodies)
+    console.info('[ask] request', {
+      model,
+      maxTokens,
+      temperature,
+      questionPreview: previewText(question, 200),
+    })
 
-  return NextResponse.json({ content, summary })
+    const resp = (await client.chat.completions.create(payload)) as ChatCompletion
+    const content = resp.choices?.[0]?.message?.content || ''
+    const summary = {
+      id: resp.id,
+      model: resp.model,
+      created: resp.created,
+      usage: resp.usage,
+      finish_reason: resp.choices?.[0]?.finish_reason,
+    }
+
+    const durationMs = Date.now() - startedAt
+    console.info('[ask] response', {
+      ...summary,
+      durationMs,
+      contentPreview: previewText(content, 400),
+    })
+
+    return NextResponse.json({ content, summary })
+  } catch (error) {
+    const durationMs = Date.now() - startedAt
+    console.error('[ask] error', {
+      model,
+      maxTokens,
+      temperature,
+      durationMs,
+      message: (error as Error)?.message,
+    })
+    throw error
+  }
 }
 
 export async function POST(req: Request) {
