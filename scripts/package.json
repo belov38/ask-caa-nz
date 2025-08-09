@@ -1,0 +1,21 @@
+{
+  "name": "air-law-tools",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "download:car": "node scripts/download_rules.js",
+    "convert:car": "node scripts/pdf_to_md.js",
+    "augment:car": "node scripts/augment_car_yaml.js",
+    "combine:car": "node scripts/combine_md.js",
+    "ask:car": "node scripts/ask_llm.js",
+    "caa": "node scripts/caa_download_and_convert.js"
+  },
+  "dependencies": {
+    "yaml": "^2.4.5",
+    "pdfjs-dist": "^4.10.38",
+    "openai": "^4.56.0",
+    "dotenv": "^16.4.5"
+  }
+}
+

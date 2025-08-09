@@ -1,0 +1,155 @@
+rules:
+  - part: 1
+    name: Definitions and Abbreviations
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_001_Consolidation.pdf
+  - part: 12
+    name: Accidents, Incidents, and Statistics
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_012_Consolidation.pdf
+  - part: 19
+    name: Miscellaneous Rules
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_019_Consolidation.pdf
+  - part: 21
+    name: Certification of Products and Parts
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_021_Consolidation.pdf
+  - part: 26
+    name: Additional Airworthiness Requirements
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_026_Consolidation.pdf
+  - part: 39
+    name: Airworthiness Directives
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_039_Consolidation.pdf
+  - part: 43
+    name: General Maintenance Rules
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_043_Consolidation.pdf
+  - part: 47
+    name: Aircraft Registration and Marking
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_047_Consolidation.pdf
+  - part: 61
+    name: Pilot Licences and Ratings
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_061_Consolidation.pdf
+  - part: 63
+    name: Flight Engineer Licences and Ratings
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_063_Consolidation.pdf
+  - part: 65
+    name: Air Traffic Services Personnel Licences and Ratings
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_065_Consolidation.pdf
+  - part: 66
+    name: Aircraft Maintenance Personnel Licensing
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_066_Consolidation.pdf
+  - part: 67
+    name: Medical Standards and Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_067_Consolidation.pdf
+  - part: 71
+    name: Designation and Classification of Airspace
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_071_Consolidation.pdf
+  - part: 77
+    name: Objects and Activities Affecting Navigable Airspace
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_077_Consolidation.pdf
+  - part: 91
+    name: General Operating and Flight Rules
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_091_Consolidation.pdf
+  - part: 92
+    name: Carriage of Dangerous Goods
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_092_Consolidation.pdf
+  - part: 93
+    name: Special Aerodrome Traffic Rules and Noise Abatement Procedures
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_093_Consolidation.pdf
+  - part: 95
+    name: Instrument Flight Procedures - Registration
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_095_Consolidation.pdf
+  - part: 99
+    name: Drug and Alcohol Management Plans
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_099_Consolidation.pdf
+  - part: 100
+    name: Safety Management
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_100_Consolidation.pdf
+  - part: 101
+    name: Gyrogliders and Parasails, Unmanned Aircraft (including Balloons), Kites, and Rockets - Operating Rules
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_101_Consolidation.pdf
+  - part: 102
+    name: Unmanned Aircraft Operator Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_102_Consolidation.pdf
+  - part: 103
+    name: Microlight Aircraft - Operating Rules
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_103_Consolidation.pdf
+  - part: 104
+    name: Gliders - Operating Rules
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_104_Consolidation.pdf
+  - part: 105
+    name: Parachuting - Operating Rules
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_105_Consolidation.pdf
+  - part: 106
+    name: Hang Gliders Operating Rules
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_106_Consolidation.pdf
+  - part: 108
+    name: Air Operator Security Programme
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_108_Consolidation.pdf
+  - part: 109
+    name: Regulated Air Cargo Agent - Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_109_Consolidation.pdf
+  - part: 115
+    name: Adventure Aviation Certification and Operations
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_115_Consolidation.pdf
+  - part: 119
+    name: Air Operator Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_119_Consolidation.pdf
+  - part: 121
+    name: Air Operations Large Aeroplanes
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_121_Consolidation.pdf
+  - part: 125
+    name: Air Operations Medium Aeroplanes
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_125_Consolidation.pdf
+  - part: 129
+    name: Foreign Air Transport Operator Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_129_Consolidation.pdf
+  - part: 133
+    name: Helicopter External Load Operations
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_133_Consolidation.pdf
+  - part: 135
+    name: Air Operations Helicopters and Small Aeroplanes
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_135_Consolidation.pdf
+  - part: 137
+    name: Agricultural Aircraft Operations
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_137_Consolidation.pdf
+  - part: 139
+    name: Aerodromes Certification, Operation and Use
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_139_Consolidation.pdf
+  - part: 140
+    name: Providers of Aviation Security Services
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_140_Consolidation.pdf
+  - part: 141
+    name: Aviation Training Organisations Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_141_Consolidation.pdf
+  - part: 145
+    name: Aircraft Maintenance Organisations Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_145_Consolidation.pdf
+  - part: 146
+    name: Aircraft Design Organisations Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_146_Consolidation.pdf
+  - part: 147
+    name: Maintenance Training Organisations Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_147_Consolidation.pdf
+  - part: 148
+    name: Aircraft Manufacturing Organisations Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_148_Consolidation.pdf
+  - part: 149
+    name: Aviation Recreation Organisations Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_149_Consolidation.pdf
+  - part: 157
+    name: Notice of Construction, Alteration, Activation, and Deactivation of Aerodromes
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_157_Consolidation.pdf
+  - part: 171
+    name: Aeronautical Telecommunication Services - Operation and Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_171_Consolidation.pdf
+  - part: 172
+    name: Air Traffic Service Organisations Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_172_Consolidation.pdf
+  - part: 173
+    name: Instrument Flight Procedure Service Organisation - Certification and Operation
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_173_Consolidation.pdf
+  - part: 174
+    name: Aviation Meteorological Service Organisations Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_174_Consolidation.pdf
+  - part: 175
+    name: Aeronautical Information Service Organisations Certification
+    url: https://www.aviation.govt.nz/assets/rules/consolidations/Part_175_Consolidation.pdf
+
