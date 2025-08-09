@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const projectRoot = path.resolve(__dirname, '..');
-const dataFile = path.resolve(projectRoot, 'data', 'car.yaml');
+const dataFile = path.resolve(projectRoot, 'car.yaml');
 const defaultOut = path.resolve(projectRoot, 'md', 'car', 'ALL_CAR.md');
 
 function readYaml(filePath) {

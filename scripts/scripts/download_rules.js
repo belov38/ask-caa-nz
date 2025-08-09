@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const projectRoot = path.resolve(__dirname, '..');
-const dataFile = path.resolve(projectRoot, 'data', 'car.yaml');
+const dataFile = path.resolve(projectRoot, 'car.yaml');
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 const REFERER = 'https://www.aviation.govt.nz/rules/rule-part/';

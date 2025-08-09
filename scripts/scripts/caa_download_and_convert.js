@@ -15,7 +15,7 @@ const projectRoot = path.resolve(__dirname, '..');
 const DEFAULT_URL = process.env.CAA_URL
   || 'https://www.legislation.govt.nz/act/public/2023/0010/latest/096be8ed81f4efea.pdf';
 const DEFAULT_PDF_REL = process.env.CAA_PDF_OUT || path.join('download', 'caa', 'CAA_2023_0010.pdf');
-const DEFAULT_MD_REL = process.env.CAA_MD_OUT || path.join('prompts', 'caa', 'CAA_2023_0010.md');
+const DEFAULT_MD_REL = process.env.CAA_MD_OUT || path.join('md', 'caa', 'CAA_2023_0010.md');
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36';
 const REFERER = 'https://www.legislation.govt.nz/act/public/2023/0010/latest/whole.html';

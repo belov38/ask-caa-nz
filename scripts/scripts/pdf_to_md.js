@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const projectRoot = path.resolve(__dirname, '..');
-const dataFile = path.resolve(projectRoot, 'data', 'car.yaml');
+const dataFile = path.resolve(projectRoot, 'car.yaml');
 // paths are provided per-entry in YAML (pdf_path, md_path)
 
 function readYaml(filePath) {
@@ -106,7 +106,7 @@ async function main() {
 
   const ok = results.filter(r => r.ok).length;
   const fail = results.length - ok;
-  const reportPath = path.resolve(projectRoot, 'prompts', 'car', 'convert_report.json');
+  const reportPath = path.resolve(projectRoot, 'convert_report.json');
   fs.mkdirSync(path.dirname(reportPath), { recursive: true });
   fs.writeFileSync(reportPath, JSON.stringify(results, null, 2), 'utf8');
   console.log(`Summary: ${ok} ok, ${fail} fail`);

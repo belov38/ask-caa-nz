@@ -6,7 +6,6 @@
   "scripts": {
     "download:car": "node scripts/download_rules.js",
     "convert:car": "node scripts/pdf_to_md.js",
-    "augment:car": "node scripts/augment_car_yaml.js",
     "combine:car": "node scripts/combine_md.js",
     "ask:car": "node scripts/ask_llm.js",
     "caa": "node scripts/caa_download_and_convert.js"

@@ -13,7 +13,7 @@ const projectRoot = path.resolve(__dirname, '..');
 // Config
 const MODEL = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
 const SYSTEM_PATH = process.env.SYSTEM_PATH || path.resolve(projectRoot, 'md', 'car', 'ALL_CAR.md');
-const CAA_PATH = process.env.CAA_PATH || path.resolve(projectRoot, 'prompts', 'caa', 'CAA_2023_0010.md');
+const CAA_PATH = process.env.CAA_PATH || path.resolve(projectRoot, 'md', 'caa', 'CAA_2023_0010.md');
 const MAX_OUTPUT_TOKENS = process.env.MAX_OUTPUT_TOKENS ? Number(process.env.MAX_OUTPUT_TOKENS) : 32000;
 const TEMPERATURE = process.env.TEMPERATURE !== undefined && process.env.TEMPERATURE !== ''
   ? Number(process.env.TEMPERATURE)
