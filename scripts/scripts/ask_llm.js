@@ -4,14 +4,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import process from 'node:process';
 import OpenAI from 'openai';
-import dotenv from 'dotenv';
+import 'dotenv/config'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 
 // Config
-const MODEL = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
+const MODEL = process.env.OPENAI_MODEL || 'gpt-4.1-nano';
 const SYSTEM_PATH = process.env.SYSTEM_PATH || path.resolve(projectRoot, 'md', 'car', 'ALL_CAR.md');
 const CAA_PATH = process.env.CAA_PATH || path.resolve(projectRoot, 'md', 'caa', 'CAA_2023_0010.md');
 const MAX_OUTPUT_TOKENS = process.env.MAX_OUTPUT_TOKENS ? Number(process.env.MAX_OUTPUT_TOKENS) : 32000;
@@ -19,9 +19,6 @@ const TEMPERATURE = process.env.TEMPERATURE !== undefined && process.env.TEMPERA
   ? Number(process.env.TEMPERATURE)
   : undefined; // omit if not set to respect model defaults
 
-function loadDotEnv() {
-  dotenv.config({ path: path.resolve(projectRoot, '.env') });
-}
 
 function readTextOrThrow(filePath) {
   if (!fs.existsSync(filePath)) {
@@ -47,8 +44,6 @@ function getUserPromptFromArgs() {
 }
 
 async function main() {
-  // Load .env (non-destructive)
-  loadDotEnv();
 
   const carText = readTextOrThrow(SYSTEM_PATH);
   const caaText = readTextIfExists(CAA_PATH);
